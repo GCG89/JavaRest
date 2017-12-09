@@ -7,6 +7,7 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
+import org.codehaus.jettison.json.JSONArray;
 
 public class RestClient {
 	private String url;
@@ -28,6 +29,25 @@ public class RestClient {
         WebResource webResource = client.resource(url);
         JSONObject response = webResource.type("application/json").get(JSONObject.class);
         return response;
+	}
+	
+	/**
+	 * Returns JSONArray from a JsonObject
+	 * @param jsonObject
+	 * @param jsonArray
+	 * @return
+	 */
+	public JSONArray getJsonArray(JSONObject jsonObject, String jsonArray) 
+	{
+		try
+		{
+			return jsonObject.getJSONArray(jsonArray);
+		}
+		catch(Exception e)
+		{
+			System.out.println("Unnable to get JsonArray from JsonObject");
+			return null;
+		}
 	}
 
 }
